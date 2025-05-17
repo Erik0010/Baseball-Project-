@@ -1,0 +1,63 @@
+--ERD Schemma 
+
+Table ball_pos {
+  game_str text
+  play_id int
+  timestamp text
+  ball_position_x float
+  ball_position_y float
+  ball_position_z float
+}
+
+Table player_pos {
+  game_str text
+  play_id int
+  timestamp text
+  player_position text
+  field_x float
+  field_y float
+}
+
+Table game_info {
+  game_str text
+  home_team text
+  away_team text
+  at_bat int
+  play_per_game int
+  top_bottom_inning text
+  pitcher text
+  catcher text
+  first_base text
+  second_base text
+  third_base text
+  shortstop text
+  left_field text
+  center_field text
+  right_field text
+  batter text
+  first_baserunner text
+  second_baserunner text
+  third_baserunner text
+}
+
+Table game_events {
+  game_str text
+  play_id int
+  at_bat int
+  play_per_game int
+  timestamp text
+  player_position text
+  event_code int
+}
+
+Table rosters {
+  team_id text
+  player_id text
+}
+
+Ref: ball_pos.play_id > game_events.play_id
+Ref: ball_pos.timestamp > game_events.timestamp
+Ref: player_pos.play_id > game_events.play_id
+Ref: player_pos.timestamp > game_events.timestamp
+Ref: game_events.game_str > game_info.game_str
+Ref: rosters.player_id > game_info.batter
